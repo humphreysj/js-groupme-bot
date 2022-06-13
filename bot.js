@@ -4,12 +4,11 @@ var cool = require('cool-ascii-faces');
 var botID = process.env.BOT_ID;
 
 function respond() {
-  var request = JSON.parse(this.req.chunks[0]),
-      botRegex = /^\/cool guy$/;
+  var request = JSON.parse(this.req.chunks[0]);
 
-  if(request.text && botRegex.test(request.text)) {
+  if(request.text!==null) {
     this.res.writeHead(200);
-    postMessage();
+    postMessage(request.text);
     this.res.end();
   } else {
     console.log("don't care");
@@ -18,10 +17,16 @@ function respond() {
   }
 }
 
-function postMessage() {
+function postMessage(text) {
   var botResponse, options, body, botReq;
 
-  botResponse = cool();
+  switch(text){
+    case "!bars":
+      botResponse = "Does anyone want to rip bents with my dad. \nHe's totally trashed rn and hes buying us drinks";
+      break;
+    case "!cigs":
+      botResponse = "Can anyone deliver cigs to looneys, will pay good money"
+      break;
 
   options = {
     hostname: 'api.groupme.com',
